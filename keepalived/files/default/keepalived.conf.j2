@@ -1,0 +1,56 @@
+{#- This is adapted from the official SaltStack formula found here:
+    https://github.com/saltstack-formulas/keepalived-formula
+-#}
+
+{%- set key = 0 -%}
+{%- set value = 1 -%}
+{%- set carryovers = ['real_server', 'virtual_server', 'virtual_server_group', 'vrrp_instance', 'vrrp_script', 'vrrp_sync_group', 'vrrp_track_process'] -%}
+{%- set sections = ['global_defs', 'vrrp_sync_group', 'vrrp_script', 'vrrp_track_process', 'vrrp_instance', 'virtual_server'] %}
+
+{%- macro print_config(data, carryover='', recurse=-1, indent=0) -%}
+  {%- set recurse = recurse + 1 -%}
+  {%- if data is none -%}
+    {{- '\n' -}}
+  {%- elif data is string or data is number -%}
+    {{- data | string | indent(indent, True) }}{{ '\n' -}}
+  {%- else -%}
+    {%- if recurse > 0 -%}
+      {{- '{\n' -}}
+      {%- set indent = indent + 2 -%}
+    {%- endif -%}
+    {%- if data is mapping -%}
+      {%- for item in data|dictsort -%}
+        {%- if item[key] in carryovers -%}
+          {{- print_config(item[value], carryover=item[key], indent=indent) -}}
+        {%- else -%}
+          {%- set carryIndent = indent -%}
+          {%- set forwardIndent = indent -%}
+          {%- if carryover -%}
+            {{- carryover|indent(indent, True) }}{{ ' ' -}}
+            {%- set carryIndent = 0 -%}
+          {%- endif -%}
+          {%- if item[value] is string or item[value] is not iterable -%}
+            {%- set forwardIndent = 0 -%}
+          {%- endif -%}
+          {%- if item[value] is sameas true %}
+            {#- If curent parameter is boolen type like nopreempt, dont_track_primary, etc. just print its name -#}
+            {{- item[key] | indent(carryIndent, True) }}{{ '\n' -}}
+          {%- else %}
+            {{- item[key] | indent(carryIndent, True) }} {{ print_config(item[value], recurse=recurse, indent=forwardIndent) -}}
+          {%- endif %}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- else -%}
+      {%- for item in data -%}
+        {{- print_config(item, indent=indent) -}}
+      {%- endfor -%}
+    {%- endif -%}
+    {%- if recurse > 0 -%}
+      {{- '}' | indent(indent - 2, True) -}}{{ '\n' }}
+    {%- endif -%}
+  {%- endif -%}
+{%- endmacro -%}
+
+{%- for section in sections %}
+{{ print_config({section: keepalived.config.get(section, {})}) }}
+{%- endfor %}

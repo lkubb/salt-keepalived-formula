@@ -1,0 +1,36 @@
+{
+  "template": "https://github.com/lkubb/salt-template-formula",
+  "commit": "63b1c0066d38bfe946a650abeda910522638d427",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "_extensions": [
+        "local_extensions.YAMLDumper"
+      ],
+      "_jinja2_env_vars": {
+        "block_start_string": "{!",
+        "block_end_string": "!}",
+        "variable_start_string": "{=",
+        "variable_end_string": "=}",
+        "comment_start_string": "{@",
+        "comment_end_string": "@}"
+      },
+      "name": "keepalived",
+      "abbr": "keepalived",
+      "abbr_pysafe": "keepalived",
+      "pkg": "keepalived",
+      "needs_repo": "",
+      "config": "/etc/keepalived/keepalived.conf",
+      "service": "keepalived",
+      "subcomponent": "",
+      "subcomponent_config": "",
+      "git_username": "lkubb",
+      "_lookup": {},
+      "_settings": {
+        "config": {}
+      },
+      "_template": "https://github.com/lkubb/salt-template-formula"
+    }
+  },
+  "directory": null
+}
