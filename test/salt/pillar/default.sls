@@ -7,6 +7,8 @@ keepalived:
     # Just for testing purposes
     winner: lookup
     added_in_lookup: lookup_value
+    pkg:
+      name: keepalived
     config: '/etc/keepalived/keepalived.conf'
     service:
       name: keepalived

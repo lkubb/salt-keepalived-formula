@@ -8,6 +8,8 @@ values:
   lookup:
     arch: amd64
     rootgroup: root
+    pkg:
+      name: keepalived
     config: '/etc/keepalived/keepalived.conf'
     service:
       name: keepalived
