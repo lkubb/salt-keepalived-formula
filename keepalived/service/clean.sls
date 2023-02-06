@@ -1,10 +1,13 @@
-# -*- coding: utf-8 -*-
 # vim: ft=sls
 
-{%- set tplroot = tpldir.split('/')[0] %}
+{#-
+    Stops the keepalived service and disables it at boot time.
+#}
+
+{%- set tplroot = tpldir.split("/")[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as keepalived with context %}
 
-keepalived-service-clean-service-dead:
+keepalived is dead:
   service.dead:
     - name: {{ keepalived.lookup.service.name }}
-    - enable: False
+    - enable: false

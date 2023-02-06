@@ -1,14 +1,18 @@
-# -*- coding: utf-8 -*-
 # vim: ft=sls
 
-{%- set tplroot = tpldir.split('/')[0] %}
-{%- set sls_config_clean = tplroot ~ '.config.clean' %}
+{#-
+    Removes the keepalived package.
+    Has a depency on `keepalived.config.clean`_.
+#}
+
+{%- set tplroot = tpldir.split("/")[0] %}
+{%- set sls_config_clean = tplroot ~ ".config.clean" %}
 {%- from tplroot ~ "/map.jinja" import mapdata as keepalived with context %}
 
 include:
   - {{ sls_config_clean }}
 
-keepalived-package-clean-pkg-removed:
+keepalived is removed:
   pkg.removed:
     - name: {{ keepalived.lookup.pkg.name }}
     - require:

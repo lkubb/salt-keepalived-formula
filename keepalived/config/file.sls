@@ -1,25 +1,24 @@
-# -*- coding: utf-8 -*-
 # vim: ft=sls
 
-{%- set tplroot = tpldir.split('/')[0] %}
-{%- set sls_package_install = tplroot ~ '.package.install' %}
+{%- set tplroot = tpldir.split("/")[0] %}
+{%- set sls_package_install = tplroot ~ ".package.install" %}
 {%- from tplroot ~ "/map.jinja" import mapdata as keepalived with context %}
 {%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
 
 include:
   - {{ sls_package_install }}
 
-keepalived-config-file-file-managed:
+keepalived configuration is managed:
   file.managed:
     - name: {{ keepalived.lookup.config }}
-    - source: {{ files_switch(['keepalived.conf', 'keepalived.conf.j2'],
-                              lookup='keepalived-config-file-file-managed'
+    - source: {{ files_switch(["keepalived.conf", "keepalived.conf.j2"],
+                              lookup="keepalived configuration is managed"
                  )
               }}
-    - mode: 644
+    - mode: '0644'
     - user: root
     - group: {{ keepalived.lookup.rootgroup }}
-    - makedirs: True
+    - makedirs: true
     - template: jinja
     - require:
       - sls: {{ sls_package_install }}
