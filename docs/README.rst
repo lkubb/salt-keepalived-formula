@@ -97,7 +97,7 @@ uninstalls the package.
 ``keepalived.package.clean``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Removes the keepalived package.
-Has a depency on `keepalived.config.clean`_.
+Has a dependency on `keepalived.config.clean`_.
 
 
 ``keepalived.config.clean``
