@@ -11,6 +11,7 @@ keepalived:
     config: '/etc/keepalived/keepalived.conf'
     service:
       name: keepalived
+    libexec: /usr/libexec/keepalived
   config: {}
 
   tofs:

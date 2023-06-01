@@ -26,3 +26,28 @@ keepalived configuration is managed:
       - sls: {{ sls_package_install }}
     - context:
         keepalived: {{ keepalived | json }}
+
+{%- if keepalived._scripts %}
+{%-   for name, contents in keepalived._scripts.items() %}
+
+Configured script {{ name }} is present in libexec dir:
+  file.managed:
+    - name: {{ keepalived.lookup.libexec | path_join(name ~ ".sh") }}
+    - source: {{ files_switch(
+                    [name ~ ".sh", "libexec.sh.j2"],
+                    config=keepalived,
+                    lookup="Configured script " ~  name ~ " is present in libexec dir",
+                 )
+              }}
+    - mode: '0755'
+    - user: root
+    - group: {{ keepalived.lookup.rootgroup }}
+    - makedirs: true
+    - template: jinja
+    - require:
+      - sls: {{ sls_package_install }}
+    - context:
+        keepalived: {{ keepalived | json }}
+        contents: {{ contents | json }}
+{%-   endfor %}
+{%- endif %}

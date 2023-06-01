@@ -76,6 +76,13 @@ Installs the keepalived package only.
 Manages the keepalived service configuration.
 Has a dependency on `keepalived.package`_.
 
+Note for SELinux:
+
+Inline scripts lead to denials, they must be placed
+in a special dir. This formula takes care of that
+automatically if SELinux is enabled, so you can
+just keep writing them in the config.
+
 
 ``keepalived.service``
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -102,7 +109,8 @@ Has a dependency on `keepalived.config.clean`_.
 
 ``keepalived.config.clean``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Removes the configuration of the keepalived service and has a
+Removes the configuration of the keepalived service
+including configured scripts (if SELinux is enabled) and has a
 dependency on `keepalived.service.clean`_.
 
 

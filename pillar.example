@@ -9,6 +9,9 @@ keepalived:
     # 1) adding mapstack 2) supporting vrrp_track_process @TODO PR
   config: {}
 
+  lookup:
+    libexec: /usr/libexec/keepalived
+
   tofs:
       # The files_switch key serves as a selector for alternative
       # directories under the formula files directory. See TOFS pattern

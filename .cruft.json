@@ -25,7 +25,9 @@
       "subcomponent": "",
       "subcomponent_config": "",
       "git_username": "lkubb",
-      "lookup": {},
+      "lookup": {
+        "libexec": "/usr/libexec/keepalived"
+      },
       "settings": {
         "config": {}
       },
