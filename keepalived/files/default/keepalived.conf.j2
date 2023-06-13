@@ -41,7 +41,7 @@
         {%- endif -%}
       {%- endfor -%}
     {%- else -%}
-      {%- for item in data -%}
+      {%- for item in data|sort -%}
         {{- print_config(item, indent=indent) -}}
       {%- endfor -%}
     {%- endif -%}
