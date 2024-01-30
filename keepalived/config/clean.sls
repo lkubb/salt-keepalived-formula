@@ -22,3 +22,12 @@ keepalived configuration/scripts are absent:
 {%-   endfor %}
     - require:
       - sls: {{ sls_service_clean }}
+
+{%- for proto in ["ipv4", "ipv6"] %}
+{%-   if keepalived.sysctl[proto ~ "_nonlocal_bind"] is not none %}
+
+net.{{ proto }}.ip_nonlocal_bind:
+  sysctl.present:
+    - value: 0
+{%-   endif %}
+{%- endfor %}

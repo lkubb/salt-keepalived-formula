@@ -13,6 +13,9 @@ keepalived:
       name: keepalived
     libexec: /usr/libexec/keepalived
   config: {}
+  sysctl:
+    ipv4_nonlocal_bind: null
+    ipv6_nonlocal_bind: null
 
   tofs:
     # The files_switch key serves as a selector for alternative

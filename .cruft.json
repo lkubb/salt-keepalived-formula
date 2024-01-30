@@ -29,7 +29,11 @@
         "libexec": "/usr/libexec/keepalived"
       },
       "settings": {
-        "config": {}
+        "config": {},
+        "sysctl": {
+          "ipv4_nonlocal_bind": null,
+          "ipv6_nonlocal_bind": null
+        }
       },
       "_template": "https://github.com/lkubb/salt-template-formula"
     }

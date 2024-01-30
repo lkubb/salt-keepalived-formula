@@ -51,3 +51,12 @@ Configured script {{ name }} is present in libexec dir:
         contents: {{ contents | json }}
 {%-   endfor %}
 {%- endif %}
+
+{%- for proto in ["ipv4", "ipv6"] %}
+{%-   if keepalived.sysctl[proto ~ "_nonlocal_bind"] is not none %}
+
+net.{{ proto }}.ip_nonlocal_bind:
+  sysctl.present:
+    - value: {{ keepalived.sysctl[proto ~ "_nonlocal_bind"] is true | int }}
+{%-   endif %}
+{%- endfor %}

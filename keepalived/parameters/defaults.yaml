@@ -12,6 +12,9 @@ values:
       name: keepalived
     libexec: /usr/libexec/keepalived
   config: {}
+  sysctl:
+    ipv4_nonlocal_bind: null
+    ipv6_nonlocal_bind: null
   tofs:
     files_switch:
       - id
